@@ -1,3 +1,5 @@
+// jQuery.DOMWindow.js is copyright Cody Lindley and released under the MIT license.
+// Updates and bug fixes by Eli Dickinson http://elidickinson.com/
 (function($){
 	
 	//closeDOMWindow
@@ -21,7 +23,7 @@
 				var $DOMWindowOverlay = $('#DOMWindowOverlay');
 				var $DOMWindow = $('#DOMWindow');
 				$DOMWindowOverlay.fadeOut('fast',function(){
-					$DOMWindowOverlay.trigger('unload').unbind().remove();																	  
+					$DOMWindowOverlay.trigger('unload').unbind().remove();
 				});
 				$DOMWindow.fadeOut('fast',function(){
 					if($.fn.draggable){
@@ -160,6 +162,9 @@
 					return false;
 				});
 			}else{
+				if (settings.waitForIframe){
+					$('#DOMWindowOverlay').fadeIn('fast'); // eli
+				}
 				$('#DOMWindowLoader').remove();
 				$('#DOMWindow').fadeIn('fast',function(){if(settings.functionCallOnOpen){settings.functionCallOnOpen();}});
 				$('#DOMWindow .closeDOMWindow').click(function(){						
@@ -256,7 +261,7 @@
 					}
 					sizeOverlay();
 					var $DOMWindowOverlay = $('#DOMWindowOverlay');
-					$DOMWindowOverlay.fadeIn('fast');
+					if(!settings.waitForIframe){$DOMWindowOverlay.fadeIn('fast');}
 					if(!settings.modal){$DOMWindowOverlay.click(function(){$.closeDOMWindow();});}
 				}
 				
@@ -319,7 +324,7 @@
 					break;
 					case 'iframe'://////////////////////////////// iframe //////////////////////////////////////////
 						$DOMWindow.append('<iframe frameborder="0" hspace="0" wspace="0" src="'+settings.windowSourceURL+'" name="DOMWindowIframe'+Math.round(Math.random()*1000)+'" style="width:100%;height:100%;border:none;background-color:#fff;" id="DOMWindowIframe" ></iframe>');
-						$('#DOMWindowIframe').load(showDOMWindow());
+						$('#DOMWindowIframe').load(function() { showDOMWindow() } ); // don't actually call showDOMWindow() until after iframe has loaded
 					break;
 					case 'ajax'://////////////////////////////// ajax //////////////////////////////////////////
 						if(settings.windowHTTPType == 'post'){
