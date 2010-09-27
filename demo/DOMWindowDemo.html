@@ -1,0 +1,790 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>DOM Window (jquery.DOMWindow.js)</title>
+
+<link rel="stylesheet" href="jquery-ui-themeroller.css" type="text/css" media="screen" />
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../jquery.DOMWindow.js"></script>
+
+
+<style>
+body,html{padding:0;}
+body,html{margin:0;}
+h3{ color:#666666; margin-top:30px; padding:10px 5px; background:#FFFFCC;}
+pre, code{padding:0; margin:0}
+.required{color:#990000;}
+.doNotUse{color:#CCCCCC;}
+dl{padding-bottom:3px;}
+.nav{text-align:right;padding:0;margin:0;}
+code{ *font-size:12px;}
+</style>
+
+</head>
+<body style="padding:50px;">
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but04.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+</form>
+<p class="nav"><small><a href="index.html">swip demos</a> | <a href="http://code.google.com/p/jquery-swip">swip SVN</a> | <a href="http://code.google.com/p/jquery-swip/issues/list">report issue</a></small></p>
+<h1>DOM window</h1>
+<!--[if IE 6]>
+<p style="float:right"><select name="">
+<option>IE 6 Test</option>
+</select></p>
+<![endif]-->
+
+<h3>$(selector).openDOMWindow({options}) & $(selector).closeDOMWindow({options})</h3>
+<p>jQuery plugin (<a href="jquery.DOMWindow.js">jquery.DOMwindow.js</a>) used to create DOM windows.</p>
+<hr /><!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<h4>Example 1</h4>
+<div id="example1" class="tabContainer">
+            <ul>
+                <li class="ui-tabs-nav-item"><a href="#example-1-tab-1"><span>Description</span></a></li>
+                <li class="ui-tabs-nav-item"><a href="#example-1-tab-2"><span>Demo</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-1-tab-3"><span>Demo Code</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-1-tab-4"><span>Options (based on this demo)</span></a></li>
+            </ul>
+            <div id="example-1-tab-1">
+                <p>Open a DOM window using inline content embedded in the page. The window is fixed to the centered of the viewport. This is default behavior.</p>
+            </div>
+			<div id="example-1-tab-2" style="overflow:auto">
+<p><a href="#inlineContent" class="defaultDOMWindow">Open DOM Window</a></p>
+<script type="text/javascript">
+$('.defaultDOMWindow').openDOMWindow({
+eventType:'click',
+loader:1,
+loaderImagePath:'animationProcessing.gif',
+loaderHeight:16,
+loaderWidth:17
+});
+</script>
+<div id="inlineContent" style=" display:none;">
+<p>Inline Content</p>
+<p>Click overlay to close window</p>
+<p>Consequat ea Investigationes in enim congue. Option velit volutpat quod blandit ex. Congue parum praesent aliquam nam clari. Qui praesent quam sollemnes id vulputate. In imperdiet diam at sequitur et. Minim delenit in dolor dolore typi. Erat delenit laoreet quinta videntur id. Ii at qui eum ut usus. Quis etiam suscipit iusto elit dolor. Dolor congue eodem adipiscing cum placerat. </p>
+<p>Erat usus lorem adipiscing non in. Nobis claram iusto et dolore facilisis. Claritatem decima velit decima ipsum wisi. Quinta ullamcorper sollemnes usus aliquip in. Ut aliquip velit tempor facit putamus. Habent duis et option quod facer. Delenit facer consequat seacula molestie notare. Qui tincidunt nobis lectores eleifend eorum. Decima usus facer id parum legere. Nonummy nonummy facilisis sit qui eodem. </p>
+</div>
+			</div>
+            <div id="example-1-tab-3"><pre><code class="html"></code></pre></div>
+			<div id="example-1-tab-4">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="doNotUse">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">anchoredSelector - datatype:string, default:empty string</dt>
+			<dt>borderColor - datatype:string, default:'#ccc'</dt>
+			<dt>borderSize - datatype:string, default:'4'</dt>
+			<dt>draggable - datatype:boolean, default:0</dt>
+			<dt class="required">eventType - datatype:string, default:null, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt>fixedWindowY - datatype:number, default:100</dt>
+			<dt>height - datatype:number, default:500</dt>
+			<dt>loader - datatype:boolean, default:0</dt>
+			<dt>loaderHeight - datatype:number, default:0</dt>
+			<dt>loaderImagePath - datatype:string, default:empty string</dt>
+			<dt>loaderWidth - datatype:number, default:0</dt>
+			<dt>modal - datatype:boolean, default:0</dt>
+			<dt>overlay - datatype:boolean, default:1</dt>
+			<dt>overlayColor- datatype:string, default:'#000'</dt>
+			<dt>overlayOpacity - datatype:string, default:'85'</dt>
+			<dt class="doNotUse">positionLeft - datatype:number, default:0</dt>
+			<dt class="doNotUse">positionTop - datatype:number, default:0</dt>
+			<dt class="doNotUse">positionType - datatype:string, default:'centered', options:centered | anchored | anchoredSingleWindow | fixed | absolute</dt>
+			<dt>width - datatype:number, default:500</dt>
+			<dt>windowBGColor - datatype:string, default:'#fff'</dt>
+			<dt>windowBGImage - datatype:string, default:null</dt>
+			<dt class="doNotUse">windowHTTPType - datatype:string, default:'get', options: get | post</dt>
+			<dt>windowPadding - datatype:number, default:10</dt>
+			<dt class="doNotUse">windowSource - datatype:string, default:'inline', options:inline | ajax | iframe</dt>
+			<dt class="doNotUse">windowSourceID - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">windowSourceURL - datatype:string, default:empty string</dt>
+			</dl>
+			</div>
+			
+</div>
+
+<hr /><!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<h4>Example 2</h4>
+<div id="example2" class="tabContainer">
+            <ul>
+                <li class="ui-tabs-nav-item"><a href="#example-2-tab-1"><span>Description</span></a></li>
+                <li class="ui-tabs-nav-item"><a href="#example-2-tab-2"><span>Demo</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-2-tab-3"><span>Demo Code</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-2-tab-4"><span>Options (based on this demo)</span></a></li>
+            </ul>
+            <div id="example-2-tab-1">
+                <p>Open a DOM window using ajax content that is place in a defined fixed positioned on the page (based on viewport).</p>
+            </div>
+			<div id="example-2-tab-2" style="overflow:auto">
+<p><a href="ajaxContentDOMWindow.html" class="fixedAjaxDOMWindow">Open DOM Window</a></p>
+<script type="text/javascript">
+$('.fixedAjaxDOMWindow').openDOMWindow({
+height:200,
+width:200,
+positionType:'fixed',
+positionTop:300,
+positionLeft:300,
+eventType:'click',
+loader:1,
+loaderImagePath:'animationProcessing.gif',
+loaderHeight:16,
+loaderWidth:17,
+windowSource:'ajax',
+windowHTTPType:'post'
+});
+</script>
+			</div>
+            <div id="example-2-tab-3"><pre><code class="html"></code></pre></div>
+			<div id="example-2-tab-4">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="doNotUse">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">anchoredSelector - datatype:string, default:empty string</dt>
+			<dt>borderColor - datatype:string, default:'#ccc'</dt>
+			<dt>borderSize - datatype:string, default:'4'</dt>
+			<dt>draggable - datatype:boolean, default:0</dt>
+			<dt class="required">eventType - datatype:string, default:null, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt>fixedWindowY - datatype:number, default:100</dt>
+			<dt>height - datatype:number, default:500</dt>
+			<dt>loader - datatype:boolean, default:0</dt>
+			<dt>loaderHeight - datatype:number, default:0</dt>
+			<dt>loaderImagePath - datatype:string, default:empty string</dt>
+			<dt>loaderWidth - datatype:number, default:0</dt>
+			<dt>modal - datatype:boolean, default:0</dt>
+			<dt>overlay - datatype:boolean, default:1</dt>
+			<dt>overlayColor- datatype:string, default:'#000'</dt>
+			<dt>overlayOpacity - datatype:string, default:'85'</dt>
+			<dt>positionLeft - datatype:number, default:0</dt>
+			<dt>positionTop - datatype:number, default:0</dt>
+			<dt class="required">positionType - datatype:string, default:'centered', options:centered | anchored | anchoredSingleWindow | fixed | absolute</dt>
+			<dt>width - datatype:number, default:500</dt>
+			<dt>windowBGColor - datatype:string, default:'#fff'</dt>
+			<dt>windowBGImage - datatype:string, default:null</dt>
+			<dt>windowHTTPType - datatype:string, default:'get', options: get | post</dt>
+			<dt>windowPadding - datatype:number, default:10</dt>
+			<dt class="required">windowSource - datatype:string, default:'inline', options:inline | ajax | iframe</dt>
+			<dt class="doNotUse">windowSourceID - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">windowSourceURL - datatype:string, default:empty string</dt>
+			</dl>
+			</div>
+			
+</div>
+
+<hr /><!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<h4>Example 3</h4>
+<div id="example3" class="tabContainer">
+            <ul>
+                <li class="ui-tabs-nav-item"><a href="#example-3-tab-1"><span>Description</span></a></li>
+                <li class="ui-tabs-nav-item"><a href="#example-3-tab-2"><span>Demo</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-3-tab-3"><span>Demo Code</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-3-tab-4"><span>Options (based on this demo)</span></a></li>
+            </ul>
+            <div id="example-3-tab-1">
+                <p>Open a DOM window using iframe content, that is positioned using absolute positioning (based on viewport).</p>
+            </div>
+			<div id="example-3-tab-2" style="overflow:auto">
+<p><a href="http://www.google.com" class="absoluteIframeDOMWindow">Open DOM Window</a></p>
+<script type="text/javascript">
+$('.absoluteIframeDOMWindow').openDOMWindow({
+height:400,
+width:700,
+positionType:'absolute',
+positionTop:50,
+eventType:'click',
+positionLeft:50,
+windowSource:'iframe',
+windowPadding:0,
+loader:1,
+loaderImagePath:'animationProcessing.gif',
+loaderHeight:16,
+loaderWidth:17
+});
+</script>
+			</div>
+            <div id="example-3-tab-3"><pre><code class="html"></code></pre></div>
+			<div id="example-3-tab-4">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="doNotUse">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">anchoredSelector - datatype:string, default:empty string</dt>
+			<dt>borderColor - datatype:string, default:'#ccc'</dt>
+			<dt>borderSize - datatype:string, default:'4'</dt>
+			<dt>draggable - datatype:boolean, default:0</dt>
+			<dt class="required">eventType - datatype:string, default:null, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt>fixedWindowY - datatype:number, default:100</dt>
+			<dt>height - datatype:number, default:500</dt>
+			<dt>loader - datatype:boolean, default:0</dt>
+			<dt>loaderHeight - datatype:number, default:0</dt>
+			<dt>loaderImagePath - datatype:string, default:empty string</dt>
+			<dt>loaderWidth - datatype:number, default:0</dt>
+			<dt>modal - datatype:boolean, default:0</dt>
+			<dt>overlay - datatype:boolean, default:1</dt>
+			<dt>overlayColor- datatype:string, default:'#000'</dt>
+			<dt>overlayOpacity - datatype:string, default:'85'</dt>
+			<dt>positionLeft - datatype:number, default:0</dt>
+			<dt>positionTop - datatype:number, default:0</dt>
+			<dt class="required">positionType - datatype:string, default:'centered', options:centered | anchored | anchoredSingleWindow | fixed | absolute</dt>
+			<dt>width - datatype:number, default:500</dt>
+			<dt>windowBGColor - datatype:string, default:'#fff'</dt>
+			<dt>windowBGImage - datatype:string, default:null</dt>
+			<dt>windowHTTPType - datatype:string, default:'get', options: get | post</dt>
+			<dt>windowPadding - datatype:number, default:10</dt>
+			<dt class="required">windowSource - datatype:string, default:'inline', options:inline | ajax | iframe</dt>
+			<dt class="doNotUse">windowSourceID - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">windowSourceURL - datatype:string, default:empty string</dt>
+			</dl>
+			</div>
+			
+</div>
+
+<hr /><!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<h4>Example 4</h4>
+<div id="example4" class="tabContainer">
+            <ul>
+                <li class="ui-tabs-nav-item"><a href="#example-4-tab-1"><span>Description</span></a></li>
+                <li class="ui-tabs-nav-item"><a href="#example-4-tab-2"><span>Demo</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-4-tab-3"><span>Demo Code</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-4-tab-4"><span>Options (based on this demo)</span></a></li>
+            </ul>
+            <div id="example-4-tab-1">
+                <p>Open a DOM window using inline content, that is positioned using absolute positioning (based on viewport). Additinoally, this window is draggable, opened from a button instead of an &lt;a&gt; element, and can be closed by clicking off the window on to the page.</p>
+            </div>
+			<div id="example-4-tab-2" style="overflow:auto">
+<p><button class="example4DOMWindow">Open DOM Window</button></p>
+<script type="text/javascript">
+$('.example4DOMWindow').openDOMWindow({
+height:100,
+width:500,
+positionType:'absolute',
+positionTop:100,
+eventType:'click',
+positionLeft:100,
+windowSourceID:'#example4InlineContent',
+windowPadding:20,
+draggable:1,
+windowBGColor:'#FFFF00',
+borderColor:'#990000',
+overlayOpacity:0
+});
+
+</script>
+<div id="example4InlineContent" style="display:none">
+<div style="color:#000">
+<p style="text-align:center; line-height:80px">Drag Me! Click html page behind me to close me.</p>
+</div>
+</div>			
+			</div>
+            <div id="example-4-tab-3"><pre><code class="html"></code></pre></div>
+			<div id="example-4-tab-4">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="doNotUse">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">anchoredSelector - datatype:string, default:empty string</dt>
+			<dt>borderColor - datatype:string, default:'#ccc'</dt>
+			<dt>borderSize - datatype:string, default:'4'</dt>
+			<dt>draggable - datatype:boolean, default:0</dt>
+			<dt class="required">eventType - datatype:string, default:null, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt>fixedWindowY - datatype:number, default:100</dt>
+			<dt>height - datatype:number, default:500</dt>
+			<dt>loader - datatype:boolean, default:0</dt>
+			<dt>loaderHeight - datatype:number, default:0</dt>
+			<dt>loaderImagePath - datatype:string, default:empty string</dt>
+			<dt>loaderWidth - datatype:number, default:0</dt>
+			<dt>modal - datatype:boolean, default:0</dt>
+			<dt>overlay - datatype:boolean, default:1</dt>
+			<dt>overlayColor- datatype:string, default:'#000'</dt>
+			<dt>overlayOpacity - datatype:string, default:'85'</dt>
+			<dt>positionLeft - datatype:number, default:0</dt>
+			<dt>positionTop - datatype:number, default:0</dt>
+			<dt class="required">positionType - datatype:string, default:'centered', options:centered | anchored | anchoredSingleWindow | fixed | absolute</dt>
+			<dt>width - datatype:number, default:500</dt>
+			<dt>windowBGColor - datatype:string, default:'#fff'</dt>
+			<dt>windowBGImage - datatype:string, default:null</dt>
+			<dt>windowHTTPType - datatype:string, default:'get', options: get | post</dt>
+			<dt>windowPadding - datatype:number, default:10</dt>
+			<dt>windowSource - datatype:string, default:'inline', options:inline | ajax | iframe</dt>
+			<dt class="required">windowSourceID - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">windowSourceURL - datatype:string, default:empty string</dt>
+			</dl>
+			</div>
+			
+</div>
+
+<hr /><!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<h4>Example 5</h4>
+<div id="example5" class="tabContainer">
+            <ul>
+                <li class="ui-tabs-nav-item"><a href="#example-5-tab-1"><span>Description</span></a></li>
+                <li class="ui-tabs-nav-item"><a href="#example-5-tab-2"><span>Demo</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-5-tab-3"><span>Demo Code</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-5-tab-4"><span>openDOMWindow() Options (based on this demo)</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-5-tab-5"><span>closeDOMWindow() Options (based on this demo)</span></a></li>
+            </ul>
+            <div id="example-5-tab-1">
+                <p>Open a DOM window using inline content. The window is fixed to the centered of the viewport. The window has no overlay, and can only be close by clicking the close button on the page.</p>
+            </div>
+			<div id="example-5-tab-2" style="overflow:auto">
+<p><a href="#inlineContentExample5" class="example5DOMWindow">Open DOM Window</a> | <a href="#inlineContent" class="example5closeDOMWindow">Close DOM Window</a></p>
+<script type="text/javascript">
+$('.example5DOMWindow').openDOMWindow({
+height:100,
+width:100,
+eventType:'click',
+overlay:0,
+borderColor:'#990000'
+});
+$('.example5closeDOMWindow').closeDOMWindow({eventType:'click'});
+</script>
+<div id="inlineContentExample5" style="display:none"><p>Example 5 window.</p></div>
+			
+			</div>
+            <div id="example-5-tab-3"><pre><code class="html"></code></pre></div>
+			<div id="example-5-tab-4">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="doNotUse">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">anchoredSelector - datatype:string, default:empty string</dt>
+			<dt>borderColor - datatype:string, default:'#ccc'</dt>
+			<dt>borderSize - datatype:string, default:'4'</dt>
+			<dt>draggable - datatype:boolean, default:0</dt>
+			<dt class="required">eventType - datatype:string, default:null, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt>fixedWindowY - datatype:number, default:100</dt>
+			<dt>height - datatype:number, default:500</dt>
+			<dt>loader - datatype:boolean, default:0</dt>
+			<dt>loaderHeight - datatype:number, default:0</dt>
+			<dt>loaderImagePath - datatype:string, default:empty string</dt>
+			<dt>loaderWidth - datatype:number, default:0</dt>
+			<dt>modal - datatype:boolean, default:0</dt>
+			<dt>overlay - datatype:boolean, default:1</dt>
+			<dt>overlayColor- datatype:string, default:'#000'</dt>
+			<dt>overlayOpacity - datatype:string, default:'85'</dt>
+			<dt class="doNotUse">positionLeft - datatype:number, default:0</dt>
+			<dt class="doNotUse">positionTop - datatype:number, default:0</dt>
+			<dt class="doNotUse">positionType - datatype:string, default:'centered', options:centered | anchored | anchoredSingleWindow | fixed | absolute</dt>
+			<dt>width - datatype:number, default:500</dt>
+			<dt>windowBGColor - datatype:string, default:'#fff'</dt>
+			<dt>windowBGImage - datatype:string, default:null</dt>
+			<dt class="doNotUse">windowHTTPType - datatype:string, default:'get', options: get | post</dt>
+			<dt>windowPadding - datatype:number, default:10</dt>
+			<dt class="doNotUse">windowSource - datatype:string, default:'inline', options:inline | ajax | iframe</dt>
+			<dt class="doNotUse">windowSourceID - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">windowSourceURL - datatype:string, default:empty string</dt>
+			</dl>
+			</div>
+			<div  id="example-5-tab-5">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="doNotUse">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="required">eventType - datatype:string, default:empty string, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt class="doNotUse">closeNow - datatype:boolean, default:false</dt>
+			</dl>
+			</div>
+			
+</div>
+
+<hr /><!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<h4>Example 6</h4>
+<div id="example6" class="tabContainer">
+            <ul>
+                <li class="ui-tabs-nav-item"><a href="#example-6-tab-1"><span>Description</span></a></li>
+                <li class="ui-tabs-nav-item"><a href="#example-6-tab-2"><span>Demo</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-6-tab-3"><span>Demo Code</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-6-tab-4"><span>openDOMWindow() Options (based on this demo)</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-6-tab-5"><span>closeDOMWindow() Options (based on this demo)</span></a></li>
+            </ul>
+            <div id="example-6-tab-1">
+                <p>This is an anchored window using inline content. You can close the window by passing the window class as an option in the closeDOMWidow() method.</p>
+            </div>
+			<div id="example-6-tab-2" style="overflow:auto">
+<p><a href="#inlineContentExample6" class="example6DOMWindow">Open DOM Window</a> | <a href="#inlineContent" class="example6DOMWindowClose">Close DOM Window</a></p>
+<script type="text/javascript">
+$('.example6DOMWindow').openDOMWindow({
+height:100,
+positionType:'anchored',
+anchoredClassName:'exampleWindow6',
+anchoredSelector:'.example6DOMWindow',
+positionTop:20,
+eventType:'click',
+draggable:1,
+loader:1,
+loaderImagePath:'animationProcessing.gif',
+loaderHeight:16,
+loaderWidth:17
+});
+$('.example6DOMWindowClose').closeDOMWindow({anchoredClassName:'exampleWindow6',eventType:'click'});
+</script>
+<div id="inlineContentExample6" style="display:none"><p>Example 6 window.</p></div>
+			
+			</div>
+            <div id="example-6-tab-3"><pre><code class="html"></code></pre></div>
+			<div id="example-6-tab-4">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="required">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="required">anchoredSelector - datatype:string, default:empty string</dt>
+			<dt>borderColor - datatype:string, default:'#ccc'</dt>
+			<dt>borderSize - datatype:string, default:'4'</dt>
+			<dt>draggable - datatype:boolean, default:0</dt>
+			<dt class="required">eventType - datatype:string, default:null, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt>fixedWindowY - datatype:number, default:100</dt>
+			<dt>height - datatype:number, default:500</dt>
+			<dt>loader - datatype:boolean, default:0</dt>
+			<dt>loaderHeight - datatype:number, default:0</dt>
+			<dt>loaderImagePath - datatype:string, default:empty string</dt>
+			<dt>loaderWidth - datatype:number, default:0</dt>
+			<dt>modal - datatype:boolean, default:0</dt>
+			<dt>overlay - datatype:boolean, default:1</dt>
+			<dt>overlayColor- datatype:string, default:'#000'</dt>
+			<dt>overlayOpacity - datatype:string, default:'85'</dt>
+			<dt>positionLeft - datatype:number, default:0</dt>
+			<dt>positionTop - datatype:number, default:0</dt>
+			<dt class="required">positionType - datatype:string, default:'centered', options:centered | anchored | anchoredSingleWindow | fixed | absolute</dt>
+			<dt>width - datatype:number, default:500</dt>
+			<dt>windowBGColor - datatype:string, default:'#fff'</dt>
+			<dt>windowBGImage - datatype:string, default:null</dt>
+			<dt class="doNotUse">windowHTTPType - datatype:string, default:'get', options: get | post</dt>
+			<dt>windowPadding - datatype:number, default:10</dt>
+			<dt class="doNotUse">windowSource - datatype:string, default:'inline', options:inline | ajax | iframe</dt>
+			<dt class="doNotUse">windowSourceID - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">windowSourceURL - datatype:string, default:empty string</dt>
+			</dl>
+			</div>
+			<div  id="example-6-tab-5">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="required">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="required">eventType - datatype:string, default:empty string, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt class="doNotUse">closeNow - datatype:boolean, default:false</dt>
+			</dl>
+			</div>
+			
+</div>
+
+<hr /><!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<h3>$.openDOMWindow() & $.closeDOMWindow()</h3>
+
+<p>jQuery function (<a href="jquery.DOMWindow.js">jquery.DOMwindow.js</a>) used to create DOM windows.</p>
+
+<h4>Example 7</h4>
+<div id="example7" class="tabContainer">
+            <ul>
+                <li class="ui-tabs-nav-item"><a href="#example-7-tab-1"><span>Description</span></a></li>
+                <li class="ui-tabs-nav-item"><a href="#example-7-tab-2"><span>Demo</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-7-tab-3"><span>Demo Code</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-7-tab-4"><span>openDOMWindow() Options (based on this demo)</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-7-tab-5"><span>closeDOMWindow() Options (based on this demo)</span></a></li>
+            </ul>
+            <div id="example-7-tab-1">
+                <p>This is an anchored window, appearing on mouseover, using inline content.</p>
+            </div>
+			<div id="example-7-tab-2" style="overflow:auto">
+<p><a href="#inlineContentExample7" class="example7DOMWindow">mouseover DOM Window</a></p>
+<script type="text/javascript">
+$(".example7DOMWindow").hover(
+	function () {
+		$.openDOMWindow({
+		height:226,
+		width:207,
+		positionType:'anchored',
+		anchoredClassName:'exampleWindow7',
+		anchoredSelector:'.example7DOMWindow',
+		windowSourceID:'#inlineContentExample7',
+		positionTop:-226,
+		positionLeft:40,
+		loader:1,
+		loaderImagePath:'animationProcessing.gif',
+		loaderHeight:16,
+		loaderWidth:17,
+		windowBGImage:'windowBG.gif',
+		windowBGColor:'transparent',
+		borderSize:0,
+		windowPadding:0
+		});
+	}, 
+	function () {
+		$.closeDOMWindow({anchoredClassName:'exampleWindow7'});
+	}
+);
+</script>
+<div id="inlineContentExample7" style="display:none"><p style="padding:10px">Example 7 window.</p></div>
+			
+			</div>
+            <div id="example-7-tab-3"><pre><code class="html"></code></pre></div>
+			<div id="example-7-tab-4">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="required">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="required">anchoredSelector - datatype:string, default:empty string</dt>
+			<dt>borderColor - datatype:string, default:'#ccc'</dt>
+			<dt>borderSize - datatype:string, default:'4'</dt>
+			<dt>draggable - datatype:boolean, default:0</dt>
+			<dt class="doNotUse">eventType - datatype:string, default:null, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt>fixedWindowY - datatype:number, default:100</dt>
+			<dt>height - datatype:number, default:500</dt>
+			<dt>loader - datatype:boolean, default:0</dt>
+			<dt>loaderHeight - datatype:number, default:0</dt>
+			<dt>loaderImagePath - datatype:string, default:empty string</dt>
+			<dt>loaderWidth - datatype:number, default:0</dt>
+			<dt>modal - datatype:boolean, default:0</dt>
+			<dt>overlay - datatype:boolean, default:1</dt>
+			<dt>overlayColor- datatype:string, default:'#000'</dt>
+			<dt>overlayOpacity - datatype:string, default:'85'</dt>
+			<dt>positionLeft - datatype:number, default:0</dt>
+			<dt>positionTop - datatype:number, default:0</dt>
+			<dt class="required">positionType - datatype:string, default:'centered', options:centered | anchored | anchoredSingleWindow | fixed | absolute</dt>
+			<dt>width - datatype:number, default:500</dt>
+			<dt>windowBGColor - datatype:string, default:'#fff'</dt>
+			<dt>windowBGImage - datatype:string, default:null</dt>
+			<dt class="doNotUse">windowHTTPType - datatype:string, default:'get', options: get | post</dt>
+			<dt>windowPadding - datatype:number, default:10</dt>
+			<dt class="required">windowSource - datatype:string, default:'inline', options:inline | ajax | iframe</dt>
+			<dt class="required">windowSourceID - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">windowSourceURL - datatype:string, default:empty string</dt>
+			</dl>
+			</div>
+			<div  id="example-7-tab-5">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="required">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">eventType - datatype:string, default:empty string, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt class="doNotUse">closeNow - datatype:boolean, default:false</dt>
+			</dl>
+			</div>
+			
+</div>
+
+<hr /><!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<h4>Example 8</h4>
+<div id="example8" class="tabContainer">
+            <ul>
+                <li class="ui-tabs-nav-item"><a href="#example-8-tab-1"><span>Description</span></a></li>
+                <li class="ui-tabs-nav-item"><a href="#example-8-tab-2"><span>Demo</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-8-tab-3"><span>Demo Code</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-8-tab-4"><span>Options (based on this demo)</span></a></li>
+            </ul>
+            <div id="example-8-tab-1">
+                <p>Open a DOM window using inline content embedded in the page. The window is fixed to the centered of the viewport. This is just like example 1 except that it uses a jQuery function instead of a jQuery plugin.</p>
+            </div>
+			<div id="example-8-tab-2" style="overflow:auto">
+<p><a href="#example8Content" class="example8DOMWindow">Open DOM Window</a></p>
+<script type="text/javascript">
+$('.example8DOMWindow').click(function(){
+	$.openDOMWindow({
+		loader:1,
+		loaderImagePath:'animationProcessing.gif',
+		loaderHeight:16,
+		loaderWidth:17,
+		windowSourceID:'#example8Content'
+	});
+	return false;
+});
+</script>
+<div id="example8Content" style=" display:none;">
+<p>Inline Content</p>
+<p>Click overlay to close window</p>
+<p>Consequat ea Investigationes in enim congue. Option velit volutpat quod blandit ex. Congue parum praesent aliquam nam clari. Qui praesent quam sollemnes id vulputate. In imperdiet diam at sequitur et. Minim delenit in dolor dolore typi. Erat delenit laoreet quinta videntur id. Ii at qui eum ut usus. Quis etiam suscipit iusto elit dolor. Dolor congue eodem adipiscing cum placerat. </p>
+<p>Erat usus lorem adipiscing non in. Nobis claram iusto et dolore facilisis. Claritatem decima velit decima ipsum wisi. Quinta ullamcorper sollemnes usus aliquip in. Ut aliquip velit tempor facit putamus. Habent duis et option quod facer. Delenit facer consequat seacula molestie notare. Qui tincidunt nobis lectores eleifend eorum. Decima usus facer id parum legere. Nonummy nonummy facilisis sit qui eodem. </p>
+</div>
+			</div>
+            <div id="example-8-tab-3"><pre><code class="html"></code></pre></div>
+			<div id="example-8-tab-4">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="doNotUse">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">anchoredSelector - datatype:string, default:empty string</dt>
+			<dt>borderColor - datatype:string, default:'#ccc'</dt>
+			<dt>borderSize - datatype:string, default:'4'</dt>
+			<dt>draggable - datatype:boolean, default:0</dt>
+			<dt class="required">eventType - datatype:string, default:null, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt>fixedWindowY - datatype:number, default:100</dt>
+			<dt>height - datatype:number, default:500</dt>
+			<dt>loader - datatype:boolean, default:0</dt>
+			<dt>loaderHeight - datatype:number, default:0</dt>
+			<dt>loaderImagePath - datatype:string, default:empty string</dt>
+			<dt>loaderWidth - datatype:number, default:0</dt>
+			<dt>modal - datatype:boolean, default:0</dt>
+			<dt>overlay - datatype:boolean, default:1</dt>
+			<dt>overlayColor- datatype:string, default:'#000'</dt>
+			<dt>overlayOpacity - datatype:string, default:'85'</dt>
+			<dt class="doNotUse">positionLeft - datatype:number, default:0</dt>
+			<dt class="doNotUse">positionTop - datatype:number, default:0</dt>
+			<dt class="doNotUse">positionType - datatype:string, default:'centered', options:centered | anchored | anchoredSingleWindow | fixed | absolute</dt>
+			<dt>width - datatype:number, default:500</dt>
+			<dt>windowBGColor - datatype:string, default:'#fff'</dt>
+			<dt>windowBGImage - datatype:string, default:null</dt>
+			<dt class="doNotUse">windowHTTPType - datatype:string, default:'get', options: get | post</dt>
+			<dt>windowPadding - datatype:number, default:10</dt>
+			<dt class="doNotUse">windowSource - datatype:string, default:'inline', options:inline | ajax | iframe</dt>
+			<dt class="doNotUse">windowSourceID - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">windowSourceURL - datatype:string, default:empty string</dt>
+			</dl>
+			</div>
+			
+</div>
+
+<hr /><!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<h4>Example 9</h4>
+<div id="example9" class="tabContainer">
+            <ul>
+                <li class="ui-tabs-nav-item"><a href="#example-9-tab-1"><span>Description</span></a></li>
+                <li class="ui-tabs-nav-item"><a href="#example-9-tab-2"><span>Demo</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-9-tab-3"><span>Demo Code</span></a></li>
+				<li class="ui-tabs-nav-item"><a href="#example-9-tab-4"><span>Options (based on this demo)</span></a></li>
+            </ul>
+            <div id="example-9-tab-1">
+                <p>Open a DOM window using inline content embedded in the page. The window is anchored to a specified element and the anchored window is reused (positionType:'anchoredSingleWindow') when the overlay is not used.</p>
+            </div>
+			<div id="example-9-tab-2" style="overflow:auto">
+<p><a href="#example9Content" class="example9DOMWindow">Open DOM Window</a></p>
+<p><a href="#example9aContent" class="example9aDOMWindow">Open DOM Window</a></p>
+<script type="text/javascript">
+$('.example9DOMWindow').click(function(){
+	$.openDOMWindow({
+		windowSourceID:'#example9Content',
+		height:220, 
+		width:320,
+		overlay:0,
+		positionType:'anchoredSingleWindow', 
+		windowPadding:20, 
+		windowBGColor:'#ccc', 
+		borderSize:'0',
+		anchoredSelector:'.example9DOMWindow',
+		positionLeft:120,
+		positionTop:-150
+	});
+	return false;
+});
+$('.example9aDOMWindow').click(function(){
+	$.openDOMWindow({
+		windowSourceID:'#example9Content',
+		height:220, 
+		width:320,
+		overlay:0,
+		positionType:'anchoredSingleWindow', 
+		windowPadding:20, 
+		windowBGColor:'#ccc', 
+		borderSize:'0',
+		anchoredSelector:'.example9aDOMWindow',
+		positionLeft:120,
+		positionTop:-150
+	});
+	return false;
+});
+</script>
+<div id="example9Content" style=" display:none;">
+<p>Inline Content</p>
+<p><a href="#" class="closeDOMWindow">close</a></p>
+<p>Consequat ea Investigationes in enim congue. Option velit volutpat quod blandit ex. Congue parum praesent aliquam nam clari. Qui praesent quam sollemnes id vulputate. In imperdiet diam at sequitur et. Minim delenit in dolor dolore typi.</p>
+</div>
+			</div>
+            <div id="example-9-tab-3"><pre><code class="html"></code></pre></div>
+			<div id="example-9-tab-4">
+			<p><span class="required">required</span> | <span>optional</span> | <span class="doNotUse">not used</span></p>
+			<hr />
+			<dl>
+			<dt class="doNotUse">anchoredClassName - datatype:string, default:empty string</dt>
+			<dt class="required">anchoredSelector - datatype:string, default:empty string</dt>
+			<dt>borderColor - datatype:string, default:'#ccc'</dt>
+			<dt>borderSize - datatype:string, default:'4'</dt>
+			<dt>draggable - datatype:boolean, default:0</dt>
+			<dt>eventType - datatype:string, default:null, possible options:blur | focus | load | resize | scroll | unload | click | dblclick | mousedown | mouseup | mousemove | mouseover | mouseout | mouseenter | mouseleave | change | select | submit | keydown | keypress | keyup | error</dt>
+			<dt>fixedWindowY - datatype:number, default:100</dt>
+			<dt>height - datatype:number, default:500</dt>
+			<dt>loader - datatype:boolean, default:0</dt>
+			<dt>loaderHeight - datatype:number, default:0</dt>
+			<dt>loaderImagePath - datatype:string, default:empty string</dt>
+			<dt>loaderWidth - datatype:number, default:0</dt>
+			<dt>modal - datatype:boolean, default:0</dt>
+			<dt>overlay - datatype:boolean, default:1</dt>
+			<dt>overlayColor- datatype:string, default:'#000'</dt>
+			<dt>overlayOpacity - datatype:string, default:'85'</dt>
+			<dt>positionLeft - datatype:number, default:0</dt>
+			<dt>positionTop - datatype:number, default:0</dt>
+			<dt class="required">positionType - datatype:string, default:'centered', options:centered | anchored | anchoredSingleWindow | fixed | absolute</dt>
+			<dt>width - datatype:number, default:500</dt>
+			<dt>windowBGColor - datatype:string, default:'#fff'</dt>
+			<dt>windowBGImage - datatype:string, default:null</dt>
+			<dt class="doNotUse">windowHTTPType - datatype:string, default:'get', options: get | post</dt>
+			<dt>windowPadding - datatype:number, default:10</dt>
+			<dt class="doNotUse">windowSource - datatype:string, default:'inline', options:inline | ajax | iframe</dt>
+			<dt class="doNotUse">windowSourceID - datatype:string, default:empty string</dt>
+			<dt class="doNotUse">windowSourceURL - datatype:string, default:empty string</dt>
+			</dl>
+			</div>
+			
+</div>
+
+<hr /><!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<h5>Possible upgrades</h5>
+<ul>
+<li>Add opacity option to background color of window</li>
+<li>Add ability to anchor to mouse position on click or mouseover for anchored windows</li>
+<li>Center loader in anchored window</li>
+</ul>
+
+<script type="text/javascript">
+
+
+$('#example1 > ul').tabs({selected:0});
+$('#example1 > div:eq(2) pre code').html(replaceTags($('#example1 > div:eq(1)').html()));
+
+$('#example2 > ul').tabs({selected:0});
+$('#example2 > div:eq(2) pre code').html(replaceTags($('#example2 > div:eq(1)').html()));
+
+$('#example3 > ul').tabs({selected:0});
+$('#example3 > div:eq(2) pre code').html(replaceTags($('#example3 > div:eq(1)').html()));
+
+$('#example4 > ul').tabs({selected:0});
+$('#example4 > div:eq(2) pre code').html(replaceTags($('#example4 > div:eq(1)').html()));
+
+$('#example5 > ul').tabs({selected:0});
+$('#example5 > div:eq(2) pre code').html(replaceTags($('#example5 > div:eq(1)').html()));
+
+$('#example6 > ul').tabs({selected:0});
+$('#example6 > div:eq(2) pre code').html(replaceTags($('#example6 > div:eq(1)').html()));
+
+$('#example7 > ul').tabs({selected:0});
+$('#example7 > div:eq(2) pre code').html(replaceTags($('#example7 > div:eq(1)').html()));
+	
+$('#example8 > ul').tabs({selected:0});
+$('#example8 > div:eq(2) pre code').html(replaceTags($('#example8 > div:eq(1)').html()));
+
+$('#example9 > ul').tabs({selected:0});
+$('#example9 > div:eq(2) pre code').html(replaceTags($('#example9 > div:eq(1)').html()));
+  
+function replaceTags(stringTxt) {
+	var theExp = /<([^<>]*)>/g;
+	var newString = jQuery.trim(stringTxt.replace(theExp,"&lt;$1&gt;"));
+	return newString;
+}
+</script>
+
+<script src="jquery.chili-2.1.1.js" type="text/javascript"></script>
+<script src="recipes.js" type="text/javascript"></script>
+
+</body>
+</html>
