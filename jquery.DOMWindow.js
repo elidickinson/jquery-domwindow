@@ -217,7 +217,7 @@
 					case 'inline'://////////////////////////////// inline //////////////////////////////////////////
 						$('.' + settings.anchoredClassName+" #DOMWindowContent").append($(settings.windowSourceID).children());
 						$('.' + settings.anchoredClassName).unload(function(){// move elements back when you're finished
-							$('.' + settings.windowSourceID).append( $('.' + settings.anchoredClassName+" #DOMWindowContent").children());				
+							$(settings.windowSourceID).append( $('.' + settings.anchoredClassName+" #DOMWindowContent").children());				
 						});
 						showDOMWindow(settings.anchoredClassName);
 					break;
