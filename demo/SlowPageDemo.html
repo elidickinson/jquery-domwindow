@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>SlowPageDemo</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+  <script type="text/javascript" src="../jquery.DOMWindow.js"></script>
+</head>
+<body>
+  <p>Note that these demos require PHP set up</p>
+  
+  <script>
+    $(document).ready(function() {
+      $("#slowiframe").click(function() {
+        $.openDOMWindow({
+        		loader:1,
+        		loaderImagePath:'animationProcessing.gif',
+        		loaderHeight:16,
+        		loaderWidth:17,
+        		windowSource:'iframe',
+        		windowSourceURL:"slowpage.php"
+        	});
+      });
+    });
+  </script>
+  <p>
+  <button id="slowiframe">Slow IFrame with loader</button>
+  Shows what the loader (aka spinner) looks like when the iframe is slow to load.
+  </p>
+
+
+  <script>
+    $(document).ready(function() {
+      $("#slowiframewait").click(function() {
+        $.openDOMWindow({
+        		loader:0,
+        		waitForIframe:1,
+        		windowSource:'iframe',
+        		windowSourceURL:"slowpage.php"
+        	});
+      });
+    });
+  </script>  
+  <p>
+  <button id="slowiframewait">Wait for slow IFrame</button>
+  Shows what happens when the iframe is slow to load and waitForIframe is set.
+  </p>  
+</body>
+</html>
