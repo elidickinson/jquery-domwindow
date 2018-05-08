@@ -23,7 +23,7 @@
 				var $DOMWindowOverlay = $('#DOMWindowOverlay');
 				var $DOMWindow = $('#DOMWindow');
 				$DOMWindowOverlay.fadeOut('fast',function(){
-					$DOMWindowOverlay.trigger('unload').unbind().remove();
+					$DOMWindowOverlay.trigger('unload').off().remove();
 				});
 				$DOMWindow.fadeOut('fast',function(){
 					if($.fn.draggable){
@@ -33,8 +33,8 @@
 					}
 				});
 			
-				$(window).unbind('scroll.DOMWindow');
-				$(window).unbind('resize.DOMWindow');
+				$(window).off('scroll.DOMWindow');
+				$(window).off('resize.DOMWindow');
 				
 				if($.fn.openDOMWindow.isIE6){$('#DOMWindowIE6FixIframe').remove();}
 				if(settings.functionCallOnClose){settings.functionCallAfterClose();}
@@ -43,7 +43,7 @@
 		
 		if(settings.eventType){//if used with $().
 			return this.each(function(index){
-				$(this).bind(settings.eventType, function(){
+				$(this).on(settings.eventType, function(){
 					run(this);
 					return false;
 				});
@@ -301,14 +301,14 @@
 					break;
 				}
 				
-				$(window).bind('scroll.DOMWindow',function(){
+				$(window).on('scroll.DOMWindow',function(){
 					if(settings.overlay){sizeOverlay();}
 					if(shortcut.isIE6){sizeIE6Iframe();}
 					if(settings.positionType == 'centered'){centerDOMWindow();}
 					if(settings.positionType == 'fixed'){fixedDOMWindow();}
 				});
 
-				$(window).bind('resize.DOMWindow',function(){
+				$(window).on('resize.DOMWindow',function(){
 					if(shortcut.isIE6){sizeIE6Iframe();}
 					if(settings.overlay){sizeOverlay();}
 					if(settings.positionType == 'centered'){centerDOMWindow();}
@@ -357,7 +357,7 @@
 		
 		if(settings.eventType){//if used with $().
 			return this.each(function(index){				  
-				$(this).bind(settings.eventType,function(){
+				$(this).on(settings.eventType,function(){
 					run(this);
 					return false;
 				});
