@@ -216,7 +216,7 @@
 				switch(settings.windowSource){
 					case 'inline'://////////////////////////////// inline //////////////////////////////////////////
 						$('.' + settings.anchoredClassName+" #DOMWindowContent").append($(settings.windowSourceID).children());
-						$('.' + settings.anchoredClassName).unload(function(){// move elements back when you're finished
+						$('.' + settings.anchoredClassName).on('unload',function(){// move elements back when you're finished
 							$(settings.windowSourceID).append( $('.' + settings.anchoredClassName+" #DOMWindowContent").children());				
 						});
 						showDOMWindow(settings.anchoredClassName);
@@ -317,7 +317,7 @@
 				switch(settings.windowSource){
 					case 'inline'://////////////////////////////// inline //////////////////////////////////////////
 						$DOMWindow.append($(settings.windowSourceID).children());
-						$DOMWindow.unload(function(){// move elements back when you're finished
+						$DOMWindow.on('unload',function(){// move elements back when you're finished
 							$(settings.windowSourceID).append($DOMWindow.children());				
 						});
 						showDOMWindow();
